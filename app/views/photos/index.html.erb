@@ -137,9 +137,15 @@
         </td>
 
         <td>
+          <% if session.fetch(:user_id) == nil %> 
+          <a href="/users_details">
+            Show details
+          </a>
+          <% else %>
           <a href="/photos/<%= a_photo.id %>">
             Show details
           </a>
+          <%end%>
         </td>
       </tr>
       <% end %>

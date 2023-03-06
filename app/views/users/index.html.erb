@@ -1,0 +1,44 @@
+<h1>List of users</h1>
+
+
+<hr>
+
+<table border="1">
+  <tr>
+    <th>
+      Username
+    </th>
+
+    <th>
+       Private? 
+    </th>
+
+    <th></th>
+  </tr>
+
+  <% @users.each do |user| %>
+  <tr>
+    <td>
+      <%= user.username %>
+    </td>
+    <td>
+      <% if user.private == true %>
+        Yes
+      <% else %>
+        No
+      <% end %>
+      
+    </td>
+    <td>
+      <% if session.fetch(:user_id) == nil %> 
+        <a href="/users_details">Show details</a>
+      <% elsif user.private == false %>
+        <a href="/users/<%= user.username %>">Show details</a>
+      <% else %> 
+        <a href="/users">Show details</a>
+      <%end%>
+    </td>
+  </tr>
+  
+  <% end %>
+</table>
