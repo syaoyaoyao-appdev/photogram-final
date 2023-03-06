@@ -19,15 +19,16 @@ class LikesController < ApplicationController
 
   def create
     the_like = Like.new
-    the_like.fan_id = params.fetch("query_fan_id")
-    the_like.photo_id = params.fetch("query_photo_id")
+    the_like.fan_id = session.fetch(:user_id)
+    photo_id = params.fetch("query_photo_id")
+    the_like.photo_id = photo_id
 
-    if the_like.valid?
-      the_like.save
-      redirect_to("/likes", { :notice => "Like created successfully." })
-    else
-      redirect_to("/likes", { :alert => the_like.errors.full_messages.to_sentence })
-    end
+    the_like.save
+    matching_photos = Photo.where({ :id => photo_id })
+
+    @the_photo = matching_photos.at(0)
+
+    redirect_to("/photos/#{photo_id}", { :notice => "Like created successfully." })
   end
 
   def update
@@ -39,7 +40,7 @@ class LikesController < ApplicationController
 
     if the_like.valid?
       the_like.save
-      redirect_to("/likes/#{the_like.id}", { :notice => "Like updated successfully."} )
+      redirect_to("/likes/#{the_like.id}", { :notice => "Like updated successfully." })
     else
       redirect_to("/likes/#{the_like.id}", { :alert => the_like.errors.full_messages.to_sentence })
     end
@@ -51,6 +52,6 @@ class LikesController < ApplicationController
 
     the_like.destroy
 
-    redirect_to("/likes", { :notice => "Like deleted successfully."} )
+    redirect_to("/likes", { :notice => "Like deleted successfully." })
   end
 end

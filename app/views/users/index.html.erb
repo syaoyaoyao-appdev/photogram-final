@@ -12,6 +12,7 @@
     <th>
        Private? 
     </th>
+    <th></th>
 
     <th></th>
   </tr>
@@ -27,7 +28,18 @@
       <% else %>
         No
       <% end %>
-      
+    </td>
+    <td>
+      <% if session.fetch(:user_id) != nil %> 
+        <form action="/insert_follow_request" method="post">
+          <input type="hidden" name="query_recipient_id" value="91">
+
+          <button>
+            Follow
+          </button>
+        </form>
+      <% else %>
+      <% end %>
     </td>
     <td>
       <% if session.fetch(:user_id) == nil %> 

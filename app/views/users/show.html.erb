@@ -25,6 +25,24 @@
   <% end %>
 </dl>
 
+<nav>
+  <ul>
+    <li>
+      <a href="/users/<%= @user.username %>">Profile</a>
+    </li>
+    <li>
+      <a href="/users/<%= @user.username %>/liked_photos">Liked photos</a>
+    </li>
+    <li>
+      <a href="/users/<%= @user.username %>/feed">Feed</a>
+    </li>
+    <li>
+      <a href="/users/<%= @user.username %>/discover">Discover</a>
+    </li>
+  </ul>
+</nav>
+
+
 <h2>Own photos (<%= @user.own_photos.count %>)</h2>
 
 <table border="1">
@@ -59,11 +77,11 @@
     </td>
 
     <td>
-      <%= photo.poster.username %>
-    </td>
-
-    <td>
       <%= photo.caption %>
+    </td>
+   
+    <td>
+      <%= photo.poster.username %>
     </td>
 
     <td>
